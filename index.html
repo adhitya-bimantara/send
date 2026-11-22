@@ -1147,5 +1147,14 @@
             });
         };
     </script>
+    <script>
+        const params = URLSearchParams(window.location.search);
+        const namaTamu = params.get("to") || params.get("nama");
+        const targetElement = document.getElementById("nama-tamu");
+
+        if (namaTamu && targetElement) {
+            targetElemen.textContent = namaTamu;
+        }
+    </script>
 </body>
 </html>
