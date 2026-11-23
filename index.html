@@ -972,9 +972,9 @@
         }
 
         // =====================================================================
-        // 6. BUKU TAMU & UCAPAN (LOCALSTORAGE)
+        // 6. BUKU TAMU & UCAPAN (GOOGLE SHEETS)
         // =====================================================================
-        const STORAGE_KEY = 'pawiwahan_batik_wayang_rsvp';
+        const SCRIPT_URL = 'https://accounts.google.com/signin/oauth/warning?authuser=0&part=AJi8hAPF1V5zm3K971PjuSwUyW5frvGA1VjJBJQe7RzYZy-1TcxkJssThYylZ79qbiyEn84f1IPrs07-ALa2f1BtjNJ6wkzYa4G1RJvW6hByPsMjnxRZ8JtDMPI_Xb0Sfgu2n5gW8uNZh9Hpv5QRST0FuU051IJsyGWiLfjLFYkNRdVMnwgmfSeV4qgdrAoNOVfVimI5wdvw9KKOH3fDgOkrJTrGlE0nMhhnHx6xa98HsKyBfonel1GP43RVv87JzCUeKO6HFgAOoDY3ACsJ7RjYa5hvdnkj6oKjHeOZgM2RQM6SBmh64mR-TAl74K9L5QlLZUMz3-hIkT_4Zp_zuftMixJVMmJ9ICt3PYa9yetKgdVgm1EuTwxK-BhOopQXpWGpzQcQmDDdrWcuZm4R5Sgv2Hbh9fuh9Cy0Dxaf4EBG-RJV3I9Ugiv2MJiPV7eCt4Cxy4irhtXXPNh-Lwv4BBOeSRYfuT6CN1H0XMdHqPvQ5ai25OpeygrovtguKnP-p_yF-infyqguhRyPDeLZSH-btRTmPPPAc0hg8F8dw-ukRQOpjdgU9Lmx3VZAU1wNhkfq1Rb75PlIKlJqI__pNcB7k97ZKW4_yiC4BxHAaSmWtVuiCSWz6PPia46U1u4gcVAouasNX52B706pN18CQZJuHzWDq76VxQ&flowName=GeneralOAuthFlow&hl=en-US&as=S-1458066154:1795429066455504&client_id=103672275192-enih1513gipskonjvoi2bpv26331emma.apps.googleusercontent.com&rapt=AEjHL4MYn_buOxhsoZGvwMTZQ0GctUbBWaid9ZXRle688r2FqmEXVnf1Y8X7i83lOGbrwai8eEQR5rCbCN8xi4wNCszlic-CCSWk9BvHm014SYDFGMDcGsc&requestPath=/signin/oauth/v3/consent#';
 
         const defaultComments = [
             {
@@ -986,20 +986,19 @@
             {
                 name: 'agus supendi',
                 status: 'Hadir',
-                message: 'cieee.',
+                message: 'ciee.',
                 time: '2 jam yang lalu'
             }
         ];
 
-        function loadComments() {
-            const saved = localStorage.getItem(STORAGE_KEY);
-            const comments = saved ? JSON.parse(saved) : defaultComments;
+        function renderComments(comments) {
             const listContainer = document.getElementById('comments-list');
+            if (!listContainer) return;
             listContainer.innerHTML = '';
 
             comments.forEach(item => {
-                const badgeColor = item.status === 'Hadir' 
-                    ? 'bg-emas-500/20 text-emas-300 border-emas-500/40' 
+                const badgeColor = item.status === 'Hadir'
+                    ? 'bg-emas-500/20 text-emas-300 border-emas-500/40'
                     : 'bg-sogan-800 text-krem-200/70 border-sogan-700';
 
                 const card = document.createElement('div');
@@ -1016,38 +1015,93 @@
             });
         }
 
-        function submitRSVP(event) {
+        async function loadComments() {
+            const listContainer = document.getElementById('comments-list');
+            if (!listContainer) return;
+
+            try {
+                const res = await fetch(SCRIPT_URL);
+                if (!res.ok) throw new Error('Gagal mengambil data dari Google Sheets');
+                const sheetData = await res.json();
+
+                // Gabungkan komentar dari Google Sheets dengan komentar awal (jika ada)
+                const merged = Array.isArray(sheetData) && sheetData.length > 0
+                    ? [...sheetData, ...defaultComments]
+                    : [...defaultComments];
+
+                renderComments(merged);
+            } catch (err) {
+                console.error(err);
+                renderComments(defaultComments);
+            }
+        }
+
+        async function submitRSVP(event) {
             event.preventDefault();
             const nameInput = document.getElementById('sender-name');
             const statusInput = document.getElementById('attendance');
             const messageInput = document.getElementById('message-text');
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+
+            const name = nameInput.value.trim();
+            const status = statusInput.value;
+            const message = messageInput.value.trim();
+            if (!name || !message) return;
 
             const newEntry = {
-                name: nameInput.value.trim(),
-                status: statusInput.value,
-                message: messageInput.value.trim(),
+                name,
+                status,
+                message,
                 time: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
             };
 
-            const saved = localStorage.getItem(STORAGE_KEY);
-            const comments = saved ? JSON.parse(saved) : [...defaultComments];
-            comments.unshift(newEntry);
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.dataset.originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Mengirim...';
+            }
 
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(comments));
-            messageInput.value = '';
-            loadComments();
-            showToast('Matur nuwun! Ucapan & doa restu Anda telah tersimpan.');
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(newEntry)
+                });
+
+                messageInput.value = '';
+                if (typeof showToast === 'function') {
+                    showToast('Matur nuwun! Ucapan & doa restu Anda telah tersimpan.');
+                }
+
+                // Tunggu sebentar agar baris masuk ke Google Sheets lalu muat ulang daftar
+                setTimeout(loadComments, 1200);
+            } catch (err) {
+                console.error(err);
+                if (typeof showToast === 'function') {
+                    showToast('Maaf, gagal mengirim ucapan. Silakan coba lagi.');
+                }
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = submitBtn.dataset.originalText || 'Kirim Ucapan';
+                }
+            }
         }
 
         function escapeHTML(str) {
-            return str.replace(/[&<>'"]/g, tag => ({
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                "'": '&#39;',
-                '"': '&quot;'
+            return String(str ?? '').replace(/[&<>'"]/g, tag => ({
+                '&': '&',
+                '<': '<',
+                '>': '>',
+                "'": '"',
+                '"': '"'
             }[tag] || tag));
         }
+
+        // Muat komentar saat halaman siap
+        loadComments();
+        
 
         // =====================================================================
         // 7. HTML5 CANVAS: PARTIKEL KELOPAK MELATI & CAHAYA EMAS MELAYANG
