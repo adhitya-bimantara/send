@@ -623,61 +623,105 @@
             </div>
         </section>
 
-        <!-- =================================================================
-             8. AMPLOP DIGITAL (TANDA KASIH)
-        ================================================================== -->
-        <section id="amplop" class="max-w-4xl mx-auto px-6 py-16">
-            <div data-aos="fade-up" class="text-center mb-10">
-                <p class="font-serif italic text-emas-400 text-lg">Tali Asih</p>
-                <h2 class="font-javanese text-3xl md:text-4xl text-gold-gradient font-bold mt-1">
-                    Kirim Hadiah
-                </h2>
-                <div class="batik-divider w-40 mx-auto mt-3 mb-3"></div>
-                <p class="text-krem-200/80 text-sm max-w-lg mx-auto">
-                    Doa restu Bapak/Ibu/Saudara/i merupakan karunia yang sangat berarti bagi kami. Namun jika memberikan hadiah adalah ungkapan tanda kasih, dapat melalui berikut:
-                </p>
-            </div>
+        <!-- 8. AMPLOP DIGITAL (TANDA KASIH)
+================================================================== -->
+<section id="amplop" class="max-w-4xl mx-auto px-6 py-16">
+    <div data-aos="fade-up" class="text-center mb-10">
+        <p class="font-serif italic text-emas-400 text-lg">Tali Asih</p>
+        <h2 class="font-javanese text-3xl md:text-4xl text-gold-gradient font-bold mt-1">
+            Kirim Hadiah
+        </h2>
+        <div class="batik-divider w-40 mx-auto mt-3 mb-3"></div>
+        <p class="text-krem-200/80 text-sm max-w-lg mx-auto">
+            Doa restu Bapak/Ibu/Saudara/i merupakan karunia yang sangat berarti bagi kami. Namun jika memberi adalah ungkapan tanda kasih, dapat melalui berikut:
+        </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Kartu MANDIRI -->
-                <div data-aos="fade-right" class="rounded-3xl p-7 bg-gradient-to-br from-sogan-800 via-sogan-900 to-sogan-950 border border-emas-500/50 shadow-xl relative overflow-hidden">
-                    <div class="flex justify-between items-center mb-6">
-                        <span class="font-javanese text-xl font-bold text-emas-300 tracking-wider">BANK MANDIRI</span>
-                        <div class="w-10 h-7 rounded bg-gradient-to-tr from-emas-600 to-emas-300 opacity-85"></div>
-                    </div>
-                    <p class="text-xs text-krem-200/60 uppercase tracking-widest mb-1">Nomor Rekening</p>
-                    <p id="rek-bca" class="font-mono text-2xl text-krem-100 font-semibold tracking-wider mb-2">
-                        9000041690216
-                    </p>
-                    <p class="text-sm text-emas-300 mb-6">a.n. Adhitya Bimantara</p>
-                    <button onclick="copyRekening('9000041690216', 'MANDIRI')" class="w-full py-2.5 rounded-xl bg-emas-500/15 hover:bg-emas-500 text-emas-300 hover:text-sogan-950 border border-emas-500/50 font-medium text-sm transition-all flex items-center justify-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-                        </svg>
-                        <span>Salin Nomor Rekening</span>
-                    </button>
-                </div>
+        <!-- Tombol Kirim Hadiah -->
+        <div class="mt-6">
+            <button id="btn-kirim-hadiah" onclick="toggleAmplop()" class="px-7 py-3 rounded-full bg-gradient-to-r from-emas-600 via-emas-400 to-emas-600 text-sogan-950 font-semibold text-sm shadow-lg shadow-emas-500/20 hover:scale-105 transition-all inline-flex items-center gap-2 cursor-pointer">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/>
+                </svg>
+                <span id="text-btn-hadiah">Kirim Hadiah</span>
+            </button>
+        </div>
+    </div>
 
-                <!-- Kartu Mandiri -->
-                <div data-aos="fade-left" class="rounded-3xl p-7 bg-gradient-to-br from-sogan-800 via-sogan-900 to-sogan-950 border border-emas-500/50 shadow-xl relative overflow-hidden">
-                    <div class="flex justify-between items-center mb-6">
-                        <span class="font-javanese text-xl font-bold text-emas-300 tracking-wider">BANK MANDIRI</span>
-                        <div class="w-10 h-7 rounded bg-gradient-to-tr from-emas-600 to-emas-300 opacity-85"></div>
-                    </div>
-                    <p class="text-xs text-krem-200/60 uppercase tracking-widest mb-1">Nomor Rekening</p>
-                    <p id="rek-mandiri" class="font-mono text-2xl text-krem-100 font-semibold tracking-wider mb-2">
-                        1170011788189
-                    </p>
-                    <p class="text-sm text-emas-300 mb-6">a.n. Salma Aisa Nurazizah</p>
-                    <button onclick="copyRekening('1170011788189', 'Mandiri')" class="w-full py-2.5 rounded-xl bg-emas-500/15 hover:bg-emas-500 text-emas-300 hover:text-sogan-950 border border-emas-500/50 font-medium text-sm transition-all flex items-center justify-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-                        </svg>
-                        <span>Salin Nomor Rekening</span>
-                    </button>
-                </div>
+    <!-- Container Kartu Rekening (Tersembunyi Awalnya) -->
+    <div id="daftar-rekening" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 transition-all duration-500">
+        <!-- Kartu Mandiri Adhitya -->
+        <div data-aos="fade-right" class="rounded-3xl p-7 bg-gradient-to-br from-sogan-800 via-sogan-900 to-sogan-950 border border-emas-500/50 shadow-xl relative overflow-hidden">
+            <div class="flex justify-between items-center mb-6">
+                <span class="font-javanese text-xl font-bold text-emas-300 tracking-wider">BANK MANDIRI</span>
+                <div class="w-10 h-7 rounded bg-gradient-to-tr from-emas-600 to-emas-300 opacity-85"></div>
             </div>
-        </section>
+            <p class="text-xs text-krem-200/60 uppercase tracking-widest mb-1">Nomor Rekening</p>
+            <p id="rek-adhitya" class="font-mono text-2xl text-krem-100 font-semibold tracking-wider mb-2">
+                9000041690216
+            </p>
+            <p class="text-sm text-emas-300 mb-6">a.n. Adhitya Bimantara</p>
+            <button onclick="copyRekening('9000041690216', 'Mandiri (Adhitya)', this)" class="w-full py-2.5 rounded-xl bg-emas-500/15 hover:bg-emas-500 text-emas-300 hover:text-sogan-950 border border-emas-500/50 font-medium text-sm transition-all flex items-center justify-center gap-2 cursor-pointer">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                </svg>
+                <span>Salin Nomor Rekening</span>
+            </button>
+        </div>
+
+        <!-- Kartu Mandiri Salma -->
+        <div data-aos="fade-left" class="rounded-3xl p-7 bg-gradient-to-br from-sogan-800 via-sogan-900 to-sogan-950 border border-emas-500/50 shadow-xl relative overflow-hidden">
+            <div class="flex justify-between items-center mb-6">
+                <span class="font-javanese text-xl font-bold text-emas-300 tracking-wider">BANK MANDIRI</span>
+                <div class="w-10 h-7 rounded bg-gradient-to-tr from-emas-600 to-emas-300 opacity-85"></div>
+            </div>
+            <p class="text-xs text-krem-200/60 uppercase tracking-widest mb-1">Nomor Rekening</p>
+            <p id="rek-salma" class="font-mono text-2xl text-krem-100 font-semibold tracking-wider mb-2">
+                1170011788189
+            </p>
+            <p class="text-sm text-emas-300 mb-6">a.n. Salma Aisa Nurazizah</p>
+            <button onclick="copyRekening('1170011788189', 'Mandiri (Salma)', this)" class="w-full py-2.5 rounded-xl bg-emas-500/15 hover:bg-emas-500 text-emas-300 hover:text-sogan-950 border border-emas-500/50 font-medium text-sm transition-all flex items-center justify-center gap-2 cursor-pointer">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                </svg>
+                <span>Salin Nomor Rekening</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<script>
+    function toggleAmplop() {
+        const daftarRekening = document.getElementById('daftar-rekening');
+        const textBtn = document.getElementById('text-btn-hadiah');
+        
+        daftarRekening.classList.toggle('hidden');
+        
+        if (daftarRekening.classList.contains('hidden')) {
+            textBtn.textContent = 'Kirim Hadiah';
+        } else {
+            textBtn.textContent = 'Tutup Rekening';
+            // Refresh AOS jika menggunakan library AOS agar animasi kartu berjalan mulus
+            if (typeof AOS !== 'undefined') {
+                AOS.refresh();
+            }
+        }
+    }
+
+    function copyRekening(nomor, bank, btnElement) {
+        navigator.clipboard.writeText(nomor).then(() => {
+            const spanText = btnElement.querySelector('span');
+            const teksAsli = spanText.textContent;
+            
+            spanText.textContent = 'Berhasil Disalin!';
+            btnElement.classList.add('bg-emas-500', 'text-sogan-950');
+            
+            setTimeout(() => {
+                spanText.textContent = teksAsli;
+                btnElement.classList.remove('bg-emas-500', 'text-sogan-950');
+            }, 2000);
+        });
+    }
+</script>
 
         <!-- =================================================================
              9. BUKU TAMU & UCAPAN (LIVE RSVP & KOMENTAR LOCALSTORAGE)
